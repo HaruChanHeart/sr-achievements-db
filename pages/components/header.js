@@ -41,8 +41,8 @@ const Header = () => {
     }
 
     return (
-        <header>
-            <nav className='bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-slate-700'>
+        <header className='sticky top-0'>
+            <nav className='bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-slate-700 shadow-lg shadow-slate-700/25'>
                 <div className='flex flex-row justify-left items-center mx-auto max-w-screen-xl'>
                     {router.pathname !== "/" && (
                         BackButton()
