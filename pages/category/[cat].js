@@ -3,6 +3,16 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import useSWR from 'swr'
 
+import { Badge } from '../components/ui/badge'
+import { Input } from '../components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../components/ui/select'
+
 import Header from '../components/header'
 import Footer from '../components/footer'
 import CompleteButton from '../components/complete'
@@ -36,10 +46,10 @@ export default function Achievements() {
   const router = useRouter();
   const { cat } = router.query;
 
-  //Handle the error state
+  // Handle the error state
   if (error) return <div>Failed to load</div>
 
-  //Handle the loading state
+  // Handle the loading state
   if (!data) return <div>Loading...</div>
 
   const lang = JSON.parse(data);
@@ -59,21 +69,31 @@ export default function Achievements() {
       </Head>
       <Header />
       <section className='p-10 mx-auto max-w-screen-xl'>
-        <div className='flex flex-row justify-center items-center'>
-          <h1 className='text-3xl font-black text-slate-800 dark:text-white'>
+        <div className='flex flex-row justify-center items-center gap-4 mb-5'>
+          <h1 className='text-3xl font-black w-[180px]'>
             <CountComplete count={list} />
           </h1>
-          <label className='ml-auto text-slate-900 dark:text-white' htmlFor="search">
-            <input className='bg-slate-50 border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 outline-0 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' id="search" type="text" onChange={handleSearch} />
-          </label>
+          <div className='ml-auto'>
+            <Input id="search" type="text" placeholder="Achivement Title" className='w-full' onChange={handleSearch} />
+          </div>
+          <Select>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Options" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="incomplete">Incomplete</SelectItem>
+              <SelectItem value="complete">Complete</SelectItem>
+              <SelectItem value="all">All</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
-        {list.filter((item) => item.Title.includes(search)).map((items, index) => (
-          <div key={items.Id} className='flex flex-row px-4 py-2 my-4 rounded-sm shadow-lg shadow-slate-300 bg-slate-100 text-slate-800 dark:bg-gray-900 dark:text-white dark:shadow-gray-900'>
+        {list.filter((item) => item.Title.includes(search)).map((items) => (
+          <div key={items.Id} className='flex flex-row px-4 py-2 my-2 rounded-md border text-slate-800 dark:text-white'>
             <div className='mr-auto'>
-              <h3 className='text-xl font-black text-amber-600 dark:text-amber-200'>{items.Title}</h3>
-              <p className='text-base font-semibold text-slate-700 dark:text-gray-300'>{items.Desc}</p>
-              {items.SubDesc ? (<p className='text-sm text-slate-500 dark:text-gray-400'>{items.SubDesc}</p>) : null}
-              {items.Hidden ? (<p className='text-sm font-black px-2 py-0.5 mt-1 mb-0.5 rounded-sm inline-block text-slate-600 bg-slate-300 dark:text-slate-400 dark:bg-slate-800'>히든 업적</p>) : null}
+              <h3 className='text-xl font-black'>{items.Title}</h3>
+              <p className='text-base font-semibold text-zinc-500 dark:text-zinc-400'>{items.Desc}</p>
+              {items.SubDesc ? (<p className='text-sm text-zinc-600 dark:text-zinc-500'>{items.SubDesc}</p>) : null}
+              {items.Hidden ? (<Badge variant="outline">히든 업적</Badge>) : null}
             </div>
             <div className='flex ml-3 justify-center items-center'>
               <Rarity rare={items.Rarity} />

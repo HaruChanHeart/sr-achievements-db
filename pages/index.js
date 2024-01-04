@@ -32,9 +32,9 @@ export default function Home() {
         <div className='p-10 mx-auto max-w-screen-xl'>
           {lang.map((items, index) => (
             <Link key={index} href={`/category/${items.id}`}>
-              <div className='flex flex-col px-4 py-2 my-4 rounded-sm shadow-lg bg-slate-100 text-slate-800 dark:bg-gray-900 dark:text-white dark:shadow-gray-900'>
-                <h3 className='text-xl font-black text-amber-600 dark:text-amber-200'>{items.title}</h3>
-                <div className='flex flex-row text-base font-semibold text-slate-700 dark:text-gray-300'>
+              <div className='flex flex-col px-4 py-2 my-2 rounded-md border'>
+                <h3 className='text-xl font-black'>{items.title}</h3>
+                <div className='flex flex-row text-base font-semibold text-zinc-500 dark:text-zinc-400'>
                   <div>업적 개수: {items.count}</div>
                   <div className='ml-auto text-right'>성옥: {items.totaljade}</div>
                 </div>
