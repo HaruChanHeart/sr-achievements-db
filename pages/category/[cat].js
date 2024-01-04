@@ -3,20 +3,20 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import useSWR from 'swr'
 
-import { Badge } from '../components/ui/badge'
-import { Input } from '../components/ui/input'
+import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../components/ui/select'
+} from '@/components/ui/select'
 
-import Header from '../components/header'
-import Footer from '../components/footer'
-import CompleteButton from '../components/complete'
-import CountComplete from '../components/countcomplete'
+import Header from '@/components/header'
+import Footer from '@/components/footer'
+import CompleteButton from '@/components/complete'
+import CountComplete from '@/components/countcomplete'
 
 //Write a fetcher function to wrap the native fetch function and return the result of a call to url in json format
 const fetcher = (url) => fetch(url).then((res) => res.json());

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import ModeToggle from './theme-switch';
+import ModeToggle from '@/components/theme-switch';
 
 const Header = () => {
     const router = useRouter();

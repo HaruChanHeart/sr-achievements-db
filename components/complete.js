@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
-import { CompleteContext } from '../../contexts/count'
-import { Checkbox } from '../components/ui/checkbox'
+import { CompleteContext } from '@/contexts/count'
+import { Checkbox } from '@/components/ui/checkbox'
 
 const CompleteButton = (props) => {
     const [ checked, setChecked ] = useState(false);

@@ -2,8 +2,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import useSWR from 'swr'
 
-import Header from './components/header'
-import Footer from './components/footer'
+import Header from '@/components/header'
+import Footer from '@/components/footer'
 
 //Write a fetcher function to wrap the native fetch function and return the result of a call to url in json format
 const fetcher = (url) => fetch(url).then((res) => res.json())
