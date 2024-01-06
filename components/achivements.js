@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 
 import { Badge } from '@/components/ui/badge'
@@ -36,6 +36,19 @@ const Rarity = (props) => {
 
 export default function AchievementList() {
     const [search, setSearch] = useState('');
+    const [ comp, setComp ] = useState(false);
+    const [ mount, setMount ] = useState(false);
+    const [ filter, setFilter ] = useState('incomplete');
+
+    useEffect(() => {
+        setMount(true);
+
+        if (!localStorage.getItem('achievements')) {
+            localStorage.setItem('achievements', JSON.stringify({}))
+        }
+        
+        setComp(JSON.parse(localStorage.getItem('achievements')));
+    }, [])
 
     //Set up SWR to run the fetcher function when calling "/api/staticdata"
     //There are 3 possible states: (1) loading when data is null (2) ready when the data is returned (3) error when there was an error fetching the data
@@ -59,8 +72,24 @@ export default function AchievementList() {
         setSearch(event.target.value);
     };
 
+    const handleSelect = (value) => {
+        setFilter(value);
+    }
+
+    const handleFilter = (item) => {
+        switch (filter) {
+            case 'incomplete':
+                if (comp[item.Id] === true) return null;
+                else return item;
+            case 'complete':
+                return comp[item.Id];
+            case 'all':
+                return item;
+        }
+    }
+
     return (
-        <section className='md:col-span-2'>
+        <section className='md:col-span-2' >
             <div className='flex flex-col md:flex-row justify-center items-start md:items-center gap-4 mb-5'>
                 <h1 className='text-3xl font-black w-[180px]'>
                     <CountComplete count={list} />
@@ -68,7 +97,7 @@ export default function AchievementList() {
                 <div className='w-full md:ml-auto'>
                     <Input id="search" type="text" placeholder="Achivement Title" className='w-full' onChange={handleSearch} />
                 </div>
-                <Select>
+                <Select onValueChange={handleSelect} defaultValue={filter}>
                     <SelectTrigger className="w-full md:w-[180px]">
                         <SelectValue placeholder="Options" />
                     </SelectTrigger>
@@ -79,21 +108,26 @@ export default function AchievementList() {
                     </SelectContent>
                 </Select>
             </div>
-            {list.filter((item) => item.Title.includes(search)).map((items) => (
-                <div key={items.Id} className='flex flex-row px-4 py-2 my-2 rounded-md border text-slate-800 dark:text-white'>
-                    <div className='mr-auto'>
-                        <h3 className='text-xl font-black'>{items.Title}</h3>
-                        <p className='text-base font-semibold text-zinc-500 dark:text-zinc-400'>{items.Desc}</p>
-                        {items.SubDesc ? (<p className='text-sm text-zinc-600 dark:text-zinc-500'>{items.SubDesc}</p>) : null}
-                        {items.Hidden ? (<Badge variant="outline">히든 업적</Badge>) : null}
-                    </div>
-                    <div className='flex ml-3 justify-center items-center'>
-                        <Rarity rare={items.Rarity} />
-                    </div>
-                    <div className='flex ml-3 justify-center items-center'>
-                        <CompleteButton id={items.Id} />
-                    </div>
-                </div>
+            {list
+                .filter((item) => handleFilter(item))
+                .filter((item) =>
+                item.Title
+                    .includes(search))
+                    .map((items) => (
+                        <div key={items.Id} className='flex flex-row px-4 py-2 my-2 rounded-md border text-slate-800 dark:text-white'>
+                            <div className='mr-auto'>
+                                <h3 className='text-xl font-black'>{items.Title}</h3>
+                                <p className='text-base font-semibold text-zinc-500 dark:text-zinc-400'>{items.Desc}</p>
+                                {items.SubDesc ? (<p className='text-sm text-zinc-600 dark:text-zinc-500'>{items.SubDesc}</p>) : null}
+                                {items.Hidden ? (<Badge variant="outline">히든 업적</Badge>) : null}
+                            </div>
+                            <div className='flex ml-3 justify-center items-center'>
+                                <Rarity rare={items.Rarity} />
+                            </div>
+                            <div className='flex ml-3 justify-center items-center'>
+                                <CompleteButton id={items.Id} />
+                            </div>
+                        </div>
             ))}
         </section>
     )
