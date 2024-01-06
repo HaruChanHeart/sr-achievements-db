@@ -29,16 +29,18 @@ npm run start
 * 검색 기능
 * 라이트 / 다크 테마 기능
 * 업적 클리어 확인 체크
+* 업적 필터 기능
+* 데스크톱, 모바일 UI 업데이트
 
 ## 추가될 예정인 기능
-* 데스크톱, 모바일 UI 개선
 * 다중언어 지원
-* 업적 필터 기능
 
 ## 지원 언어
 * 한국어 - Korean
+* 영어 - English (Language Data Only)
+* 일본어 - Japanese (Language Data Only)
 
 ### 사용된 리소스 및 라이브러리
-* [스위트 (SUITE) 폰트](https://sunn.us/suite)
+* [Wanted Sans 폰트](https://github.com/wanteddev/wanted-sans)
 * [Tailwind CSS](https://tailwindcss.com)
-* [Honkai.gg 업적 데이터베이스](https://honkai.gg/kr/achievements)
+* [shadcn/ui](https://ui.shadcn.com)

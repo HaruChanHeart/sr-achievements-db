@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { CompleteContext } from '../../contexts/count'
+import { CompleteContext } from '../contexts/count'
 
 const CountComplete = (props) => {
     const [ mount, setMount ] = useState(false);

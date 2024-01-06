@@ -1,5 +1,6 @@
-import { useState, useEffect, useContext } from 'react'
-import { CompleteContext } from '../../contexts/count'
+import { useState, useEffect, useContext, useMemo } from 'react'
+import { CompleteContext } from '@/contexts/count'
+import { Checkbox } from '@/components/ui/checkbox'
 
 const CompleteButton = (props) => {
     const [ checked, setChecked ] = useState(false);
@@ -28,15 +29,15 @@ const CompleteButton = (props) => {
         if (isChecked === false) setComplete(complete - 1);
     }
 
-    const checkHandler = ({ target }) => {
+    const checkHandler = (value, id) => {
         if (!mount) return null;
 
         setChecked(!checked);
-        checkedItemHandler(props.id, target.checked);
+        checkedItemHandler(id, value);
     };
 
     return (
-        <input className='w-10 h-10' type="checkbox" key={props.id} checked={list[props.id]} onChange={(e) => checkHandler(e)} />
+        <Checkbox className='w-10 h-10 border-zinc-400 dark:border-zinc-600' key={props.id} checked={list[props.id]} onCheckedChange={(e) => checkHandler(e, props.id)} />
     )
 }
 
