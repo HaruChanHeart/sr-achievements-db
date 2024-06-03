@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import useSWR from 'swr'
 
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
@@ -13,28 +12,25 @@ import {
 } from '@/components/ui/select'
 
 import CompleteButton from '@/components/complete'
-import CountComplete from '@/components/countcomplete'
+import CountComplete from './countcomplete'
 
-//Write a fetcher function to wrap the native fetch function and return the result of a call to url in json format
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const JadeCount = {
+    "High": 20,
+    "Mid": 10,
+    "Low": 5
+}
 
 const Rarity = (props) => {
-    const index = {
-        "High": 20,
-        "Mid": 10,
-        "Low": 5
-    }
-
     return (
         <div className='flex'>
-            <div className='flex items-center font-black text-right'>{index[props.rare]}</div>
+            <div className='flex items-center font-black text-right'>{JadeCount[props.rare]}</div>
             <div className='w-7 h-7 ml-3 bg-gradient-to-b bg-contain from-orange-400 to-orange-300 rounded-md stellar-jade'></div>
         </div>
     )
 }
 
 
-export default function AchievementList() {
+export default function AchievementList(props) {
     const [search, setSearch] = useState('');
     const [ comp, setComp ] = useState(false);
     const [ mount, setMount ] = useState(false);
@@ -50,23 +46,19 @@ export default function AchievementList() {
         setComp(JSON.parse(localStorage.getItem('achievements')));
     }, [])
 
-    //Set up SWR to run the fetcher function when calling "/api/staticdata"
-    //There are 3 possible states: (1) loading when data is null (2) ready when the data is returned (3) error when there was an error fetching the data
-    const { data, error } = useSWR('/api/data/ko', fetcher);
-
     const router = useRouter();
     const { cat } = router.query;
 
     // Handle the error state
-    if (error) return <div>Failed to load</div>
+    if (props.error) return <div>Failed to load</div>
 
     // Handle the loading state
-    if (!data) return <div>Loading...</div>
+    if (!props.data) return <div>Loading...</div>
 
-    const lang = JSON.parse(data);
+    const currentCat = parseInt(cat) ? parseInt(cat) : 1
 
     //Handle the ready state and display the result contained in the data object mapped to the structure of the json file
-    const list = cat ? lang[cat] : lang[1];
+    const list = props.data.achievements.filter((value) => value.SeriesId === currentCat);
 
     const handleSearch = (event) => {
         setSearch(event.target.value);
@@ -91,8 +83,8 @@ export default function AchievementList() {
     return (
         <section className='md:col-span-2' >
             <div className='flex flex-col md:flex-row justify-center items-start md:items-center gap-4 mb-5'>
-                <h1 className='text-3xl font-black w-[180px]'>
-                    <CountComplete count={list} />
+                <h1 className='text-3xl font-black shrink-0'>
+                    <CountComplete count={list} id={currentCat} /> / {list.length}
                 </h1>
                 <div className='w-full md:ml-auto'>
                     <Input id="search" type="text" placeholder="Achivement Title" className='w-full' onChange={handleSearch} />
@@ -114,7 +106,7 @@ export default function AchievementList() {
                 item.Title
                     .includes(search))
                     .map((items) => (
-                        <div key={items.Id} className='flex flex-row px-4 py-2 my-2 rounded-md border text-slate-800 dark:text-white'>
+                        <div key={items.Id} className='flex flex-row px-4 py-2 my-2 rounded-md border text-zinc-800 dark:text-white'>
                             <div className='mr-auto'>
                                 <h3 className='text-xl font-black'>{items.Title}</h3>
                                 <p className='text-base font-semibold text-zinc-500 dark:text-zinc-400'>{items.Desc}</p>
@@ -125,7 +117,7 @@ export default function AchievementList() {
                                 <Rarity rare={items.Rarity} />
                             </div>
                             <div className='flex ml-3 justify-center items-center'>
-                                <CompleteButton id={items.Id} />
+                                <CompleteButton data={items} />
                             </div>
                         </div>
             ))}

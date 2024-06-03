@@ -7,7 +7,7 @@ const Header = () => {
     return (
         <header className='sticky top-0 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
             <div className='flex h-14 items-center px-4 container'>
-                <div className='font-bold'>스타레일 업적사전</div>
+                <div className='font-bold'>스타레일 업적 사전</div>
                 <div className='ml-auto'>
                     <ModeToggle />
                 </div>

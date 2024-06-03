@@ -2,8 +2,7 @@ import Head from 'next/head'
 
 import Header from '@/components/header'
 import Footer from '@/components/footer'
-import SideBar from '@/components/sidebar'
-import AchievementList from '@/components/achivements'
+import AchievementUI from '@/components/achievement_ui'
 
 export default function Home() {
   return (
@@ -13,10 +12,7 @@ export default function Home() {
         <meta property='description' content="'붕괴: 스타레일'의 업적들을 모아두었습니다." />
       </Head>
       <Header />
-      <div className='grid sm:grid-cols-1 md:grid-cols-3 gap-10 p-2 md:p-5 mx-auto max-w-screen-xl'>
-        <SideBar className='w-full' />
-        <AchievementList />
-      </div>
+      <AchievementUI />
       <Footer />
     </main>
   )
