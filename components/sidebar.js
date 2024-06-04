@@ -1,4 +1,3 @@
-import useSWR from 'swr'
 import Link from 'next/link'
 import { useMediaQuery } from 'react-responsive'
 import { CaretSortIcon } from '@radix-ui/react-icons'
@@ -15,6 +14,7 @@ import {
 import { useEffect, useState } from 'react'
 import JadeCount from './jadecount'
 import CountComplete from './countcomplete'
+import ListSkeleton from './list_skel'
 
 const JadeIndex = {
     "High": 20,
@@ -44,10 +44,10 @@ export default function SideBar(props) {
     }, [isMobile])
 
     //Handle the error state
-    if (props.error) return <div>Failed to load</div>
+    if (props.error) return <div className='w-full grid grid-cols-1 gap-8'>{Array(9).fill(0).map((_) => <ListSkeleton key={_} category={true} />)}</div>;
 
     //Handle the loading state
-    if (!props.data) return <div>Loading...</div>
+    if (!props.data) return <div className='w-full grid grid-cols-1 gap-8'>{Array(9).fill(0).map((_) => <ListSkeleton key={_} category={true} />)}</div>;
 
     const lang = props.data.series
     const achievements = props.data.achievements

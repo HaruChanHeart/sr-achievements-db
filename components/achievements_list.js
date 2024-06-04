@@ -13,6 +13,7 @@ import {
 
 import CompleteButton from '@/components/complete'
 import CountComplete from './countcomplete'
+import ListSkeleton from './list_skel'
 
 const JadeCount = {
     "High": 20,
@@ -50,10 +51,10 @@ export default function AchievementList(props) {
     const { cat } = router.query;
 
     // Handle the error state
-    if (props.error) return <div>Failed to load</div>
+    if (props.error) return <div className='md:col-span-2 grid grid-cols-1 gap-6'>{Array(8).fill(0).map((_) => <ListSkeleton key={_} />)}</div>;
 
     // Handle the loading state
-    if (!props.data) return <div>Loading...</div>
+    if (!props.data) return <div className='md:col-span-2 grid grid-cols-1 gap-6'>{Array(8).fill(0).map((_) => <ListSkeleton key={_} />)}</div>;
 
     const currentCat = parseInt(cat) ? parseInt(cat) : 1
 

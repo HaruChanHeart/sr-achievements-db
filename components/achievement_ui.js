@@ -12,7 +12,7 @@ export default function AchievementUI() {
   const { data, error } = useSWR('/api/ko/data', fetcher);
 
   return (
-    <div className='grid sm:grid-cols-1 md:grid-cols-3 gap-10 p-2 md:p-5 mx-auto max-w-screen-xl'>
+    <div className='w-full h-full grow grid xs:grid-cols-1 md:grid-cols-3 gap-10 p-2 md:p-5 mx-auto max-w-screen-xl'>
       <SideBar className='w-full' data={data} error={error} />
       <AchievementList data={data} error={error} />
     </div>
