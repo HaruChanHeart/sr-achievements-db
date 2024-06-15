@@ -43,11 +43,13 @@ export default function SideBar(props) {
         isMobile ? setIsOpen(false) : setIsOpen(true)
     }, [isMobile])
 
+    const LS = () => { return <div className='w-full grid grid-cols-1 gap-8'>{Array(9).fill(0).map((_) => <ListSkeleton key={_} category={true} />)}</div> };
+
     //Handle the error state
-    if (props.error) return <div className='w-full grid grid-cols-1 gap-8'>{Array(9).fill(0).map((_) => <ListSkeleton key={_} category={true} />)}</div>;
+    if (props.error) return LS();
 
     //Handle the loading state
-    if (!props.data) return <div className='w-full grid grid-cols-1 gap-8'>{Array(9).fill(0).map((_) => <ListSkeleton key={_} category={true} />)}</div>;
+    if (!props.data) return LS();
 
     const lang = props.data.series
     const achievements = props.data.achievements
@@ -77,7 +79,7 @@ export default function SideBar(props) {
                             <div className='flex flex-col px-4 py-2 my-2 rounded-md border'>
                                 <h3 className='text-xl font-black'>{items.title}</h3>
                                 <div className='flex flex-row text-base font-semibold text-zinc-500 dark:text-zinc-400'>
-                                    <span><CountComplete count={achievements} id={items.id} /> / {TotalCount(items.id)}</span>
+                                    <span><CountComplete count={achievements} id={items.id} showpercent={true} /></span>
                                     <div className='ml-auto text-right'>
                                         <div className='flex space-x-1 items-center'>
                                             <span><JadeCount count={achievements} id={items.id} /> / {TotalCount(items.id, true)}</span>

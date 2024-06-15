@@ -35,8 +35,13 @@ const CountComplete = (props) => {
         setCompList(prevComp);
     }, [count, setCompList])
 
+    const achievement_total = props.count.filter(i => i.SeriesId === parseInt(props.id)).length
+
     return (
-        <span>{compList[props.id]}</span>
+        <div className='flex flex-row justify-start items-baseline'>
+            <span>{compList[props.id]} / {achievement_total}</span>
+            {props.showpercent ? <span className='ml-2 px-2 text-xs bg-zinc-700 text-white rounded-full'>{((compList[props.id] / achievement_total) * 100).toFixed(2)}%</span> : null}
+        </div>
     )
 }
 

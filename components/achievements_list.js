@@ -50,11 +50,13 @@ export default function AchievementList(props) {
     const router = useRouter();
     const { cat } = router.query;
 
+    const LS = () => { return <div className='md:col-span-2 grid grid-cols-1 gap-6'>{Array(8).fill(0).map((_) => <ListSkeleton key={_} />)}</div> };
+
     // Handle the error state
-    if (props.error) return <div className='md:col-span-2 grid grid-cols-1 gap-6'>{Array(8).fill(0).map((_) => <ListSkeleton key={_} />)}</div>;
+    if (props.error) return LS();
 
     // Handle the loading state
-    if (!props.data) return <div className='md:col-span-2 grid grid-cols-1 gap-6'>{Array(8).fill(0).map((_) => <ListSkeleton key={_} />)}</div>;
+    if (!props.data) return LS();
 
     const currentCat = parseInt(cat) ? parseInt(cat) : 1
 
@@ -85,7 +87,7 @@ export default function AchievementList(props) {
         <section className='md:col-span-2' >
             <div className='flex flex-col md:flex-row justify-center items-start md:items-center gap-4 mb-5'>
                 <h1 className='text-3xl font-black shrink-0'>
-                    <CountComplete count={list} id={currentCat} /> / {list.length}
+                    <CountComplete count={list} id={currentCat} />
                 </h1>
                 <div className='w-full md:ml-auto'>
                     <Input id="search" type="text" placeholder="Achivement Title" className='w-full' onChange={handleSearch} />
