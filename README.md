@@ -27,18 +27,27 @@ npm run start
 
 ## 현재 적용된 기능
 * 검색 기능
-* 라이트 / 다크 테마 기능
 * 업적 클리어 확인 체크
 * 업적 필터 기능
+* 클리어 개수, 획득한 성옥 개수 업데이트
+* 라이트 / 다크 테마 기능
 * 데스크톱, 모바일 UI 업데이트
-
-## 추가될 예정인 기능
-* 다중언어 지원
+* 다국어 선택 지원
 
 ## 지원 언어
 * 한국어 - Korean
-* 영어 - English (Language Data Only)
-* 일본어 - Japanese (Language Data Only)
+* 영어 - English
+* 일본어 - Japanese 
+* 중국어 (간체) - Simplified Chinese
+* 중국어 (번체) - Traditional Chinese
+* 베트남어 - Vietnamese
+* 태국어 - Thai
+* 러시아어 - Russian
+* 인도네시아어 - Indonesian
+* 스페인어 - Spanish
+* 덴마크어 - Danish
+* 프랑스어 - French
+* 포르투갈어 - Portuguese
 
 ### 사용된 리소스 및 라이브러리
 * [Wanted Sans 폰트](https://github.com/wanteddev/wanted-sans)
