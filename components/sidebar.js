@@ -43,7 +43,7 @@ export default function SideBar(props) {
         isMobile ? setIsOpen(false) : setIsOpen(true)
     }, [isMobile])
 
-    const LS = () => { return <div className='w-full grid grid-cols-1 gap-8'>{Array(9).fill(0).map((_) => <ListSkeleton key={_} category={true} />)}</div> };
+    const LS = () => { return <div className='w-full grid grid-cols-1 gap-8'>{Array(9).fill(0).map((_, i) => <ListSkeleton key={i} category={true} />)}</div> };
 
     //Handle the error state
     if (props.error) return LS();
@@ -74,8 +74,8 @@ export default function SideBar(props) {
                     </Button>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                    {lang.map((items, index) => (
-                        <Link key={index} href={`/category/${items.id}`}>
+                    {lang.map((items) => (
+                        <Link key={items.id} href={`/category/${items.id}`}>
                             <div className='flex flex-col px-4 py-2 my-2 rounded-md border'>
                                 <h3 className='text-xl font-black'>{items.title}</h3>
                                 <div className='flex flex-row text-base font-semibold text-zinc-500 dark:text-zinc-400'>

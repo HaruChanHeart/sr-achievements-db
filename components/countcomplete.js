@@ -35,12 +35,29 @@ const CountComplete = (props) => {
         setCompList(prevComp);
     }, [count, setCompList])
 
-    const achievement_total = props.count.filter(i => i.SeriesId === parseInt(props.id)).length
+    const achievement_total = props.count.filter(i => i.SeriesId === parseInt(props.id)).length;
+
+    const bgColor = (c1, c2) => {
+        switch (true) {
+            case c1 === c2:
+                return 'bg-emerald-700'
+            case c1 >= c2 / 2:
+                return 'bg-yellow-700';
+            case c1 >= c2 / 5:
+                return 'bg-rose-800';
+            default:
+                return 'bg-zinc-700';
+        }
+    }
+
+    const percentUI = (c1, c2) => {
+        return <span className={`ml-2 px-2 text-xs ${bgColor(c1, c2)} text-white rounded-full`}>{((c1 / c2) * 100).toFixed(2)}%</span>
+    }
 
     return (
         <div className='flex flex-row justify-start items-baseline'>
             <span>{compList[props.id]} / {achievement_total}</span>
-            {props.showpercent ? <span className='ml-2 px-2 text-xs bg-zinc-700 text-white rounded-full'>{((compList[props.id] / achievement_total) * 100).toFixed(2)}%</span> : null}
+            {props.showpercent ? percentUI(compList[props.id], achievement_total) : null}
         </div>
     )
 }

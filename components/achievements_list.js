@@ -50,7 +50,7 @@ export default function AchievementList(props) {
     const router = useRouter();
     const { cat } = router.query;
 
-    const LS = () => { return <div className='md:col-span-2 grid grid-cols-1 gap-6'>{Array(8).fill(0).map((_) => <ListSkeleton key={_} />)}</div> };
+    const LS = () => { return <div className='md:col-span-2 grid grid-cols-1 gap-6'>{Array(8).fill(0).map((_, i) => <ListSkeleton key={i} />)}</div> };
 
     // Handle the error state
     if (props.error) return LS();

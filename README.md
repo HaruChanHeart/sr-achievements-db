@@ -32,12 +32,10 @@ npm run start
 * 클리어 개수, 획득한 성옥 개수 업데이트
 * 라이트 / 다크 테마 기능
 * 데스크톱, 모바일 UI 업데이트
-
-## 추가될 예정인 기능
 * 다국어 선택 지원
 
 ## 지원 언어
-* 한국어 - Korean (Default)
+* 한국어 - Korean
 * 영어 - English
 * 일본어 - Japanese 
 * 중국어 (간체) - Simplified Chinese
